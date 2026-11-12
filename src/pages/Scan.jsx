@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import confetti from 'canvas-confetti';
-import { ArrowLeft, Check, Copy, ImageUp, RefreshCw, SwitchCamera, X } from 'lucide-react';
+import { ArrowLeft, Check, Copy, ImageUp, Images, RefreshCw, SwitchCamera, X } from 'lucide-react';
 import Header from '../components/Header.jsx';
 import Camera from '../components/Camera.jsx';
 import ScratchCard from '../components/ScratchCard.jsx';
@@ -159,12 +159,14 @@ export default function Scan() {
           </div>
         )}
 
-        <input ref={fileRef} type="file" accept="image/*" capture="environment" hidden onChange={onFile} />
+        {/* No `capture` attribute: with it, Android jumps straight to the camera.
+            Without it, Android opens its photo picker and iOS offers Photo Library / Take Photo. */}
+        <input ref={fileRef} type="file" accept="image/*" hidden onChange={onFile} />
 
         {stage === 'aim' && (
           <div className="controls">
-            <button type="button" className="icon-btn" onClick={() => fileRef.current.click()} aria-label="Upload a photo">
-              <ImageUp size={22} />
+            <button type="button" className="icon-btn" onClick={() => fileRef.current.click()} aria-label="Choose from gallery">
+              <Images size={22} />
             </button>
             {showCamera ? (
               <button
@@ -176,7 +178,7 @@ export default function Scan() {
               />
             ) : (
               <button type="button" className="btn btn--gold" onClick={() => fileRef.current.click()}>
-                Upload a photo
+                Choose from gallery
               </button>
             )}
             <button

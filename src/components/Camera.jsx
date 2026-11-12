@@ -39,8 +39,8 @@ const Camera = forwardRef(function Camera({ facing, onReady, onUnavailable }, re
         if (cancelled) return;
         onUnavailable?.(
           err?.name === 'NotAllowedError'
-            ? 'Camera access is blocked. Allow it in your browser settings, or upload a photo instead.'
-            : 'We could not open your camera. Upload a photo instead.',
+            ? 'Camera access is blocked. Allow it in your browser settings, or choose a photo from your gallery instead.'
+            : 'We could not open your camera. Choose a photo from your gallery instead.',
         );
       });
 

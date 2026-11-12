@@ -18,11 +18,24 @@ export function captureVideoFrame(video) {
 
 /** Decode a picked file (respecting EXIF rotation) and compress it. */
 export async function fileToPayload(file) {
-  const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
   try {
-    return toPayload(bitmap, bitmap.width, bitmap.height);
-  } finally {
-    bitmap.close();
+    const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+    try {
+      return toPayload(bitmap, bitmap.width, bitmap.height);
+    } finally {
+      bitmap.close();
+    }
+  } catch {
+    // Older iOS Safari lacks createImageBitmap options; <img> also applies EXIF rotation.
+    const url = URL.createObjectURL(file);
+    try {
+      const img = new Image();
+      img.src = url;
+      await img.decode();
+      return toPayload(img, img.naturalWidth, img.naturalHeight);
+    } finally {
+      URL.revokeObjectURL(url);
+    }
   }
 }
 
