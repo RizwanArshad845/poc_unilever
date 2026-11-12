@@ -17,8 +17,14 @@ export async function POST(request) {
       return Response.json({ error: err.message }, { status: 400 });
     }
     console.error('[scan] analysis failed:', err);
+    // Non-secret diagnostics so failures are visible in the browser's Network tab.
+    // upstream_status is Gemini's HTTP status: 400/403 = bad key, 404 = unknown model, 429 = quota.
     return Response.json(
-      { error: 'We could not check your photo right now. Try again in a moment.' },
+      {
+        error: 'We could not check your photo right now. Try again in a moment.',
+        code: err.code === 'missing_api_key' ? 'missing_api_key' : 'gemini_error',
+        upstream_status: typeof err.status === 'number' ? err.status : undefined,
+      },
       { status: 502 },
     );
   }

@@ -79,8 +79,13 @@ export async function analyzeProduct({ image, mimeType }) {
   if (!ALLOWED_MIME.has(mimeType)) throw new InputError('Send a JPEG, PNG, WebP or HEIC photo.');
   if (image.length > MAX_BASE64_LENGTH) throw new InputError('That photo is too large. Try again with a smaller image.');
 
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) throw new Error('GEMINI_API_KEY is not set on the server.');
+  // Trim and strip quotes: dashboard pastes often carry stray whitespace or "...".
+  const apiKey = process.env.GEMINI_API_KEY?.trim().replace(/^["']|["']$/g, '');
+  if (!apiKey) {
+    const err = new Error('GEMINI_API_KEY is not set on the server.');
+    err.code = 'missing_api_key';
+    throw err;
+  }
 
   const ai = new GoogleGenAI({ apiKey });
   const response = await ai.models.generateContent({
