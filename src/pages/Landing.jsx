@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Camera, ScanSearch, Gift } from 'lucide-react';
 import Header from '../components/Header.jsx';
+import LuxBottle from '../components/LuxBottle.jsx';
 
 const STEPS = [
   { icon: Camera, title: 'Photograph your bottle', text: 'Any Lux shower gel or body wash, label facing the camera.' },
