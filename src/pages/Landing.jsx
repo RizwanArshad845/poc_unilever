@@ -68,11 +68,7 @@ export default function Landing() {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.4, duration: 1.1, ease }}
               >
-                <img
-                  src="/lux-hero.jpg"
-                  alt="Lux Velvet Rose Shower Gel"
-                  className="arch__img"
-                />
+                <LuxBottle />
               </motion.div>
             </motion.div>
           </div>

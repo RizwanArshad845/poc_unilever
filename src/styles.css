@@ -241,17 +241,11 @@ button {
 
 .arch__bottle {
   position: absolute;
-  inset: 0;
+  inset: 12% 22% 4%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  z-index: 1;
-}
-
-.arch__bottle img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  filter: drop-shadow(0 24px 24px rgba(58, 15, 63, 0.35));
 }
 
 .arch__bottle svg {
@@ -270,8 +264,6 @@ button {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
   animation: rise 9s linear var(--d) infinite;
   opacity: 0;
-  z-index: 2;
-  pointer-events: none;
 }
 
 @keyframes rise {
