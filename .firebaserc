@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "default": "jaltech-poc"
+  },
+  "targets": {
+    "jaltech-poc": {
+      "hosting": {
+        "unilever": ["jaltech-unilever"]
+      }
+    }
+  }
+}

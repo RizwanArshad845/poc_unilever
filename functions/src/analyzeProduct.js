@@ -3,7 +3,7 @@ import { randomInt } from 'node:crypto';
 
 const DEFAULT_MODEL = 'gemini-3.8-flash';
 const ALLOWED_MIME = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif']);
-// Vercel caps request bodies at 4.5 MB; base64 inflates by ~4/3, so keep the decoded image under ~3 MB.
+// The browser resizes photos to ~1280px JPEG first; this cap (~3 MB decoded) rejects oversized or abusive uploads.
 const MAX_BASE64_LENGTH = 4_000_000;
 
 export const SYSTEM_INSTRUCTION = `

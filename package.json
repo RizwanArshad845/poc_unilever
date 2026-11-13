@@ -9,11 +9,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "install:functions": "cd functions && npm install",
+    "deploy": "npx firebase-tools deploy --only hosting:unilever,functions:unilever",
+    "deploy:web": "npx firebase-tools deploy --only hosting:unilever",
+    "deploy:api": "npx firebase-tools deploy --only functions:unilever"
   },
   "dependencies": {
-    "@google/genai": "^3.2.0",
-    "@vercel/analytics": "^2.0.1",
     "canvas-confetti": "^1.9.4",
     "lucide-react": "^1.72.0",
     "motion": "^14.13.0",
@@ -22,6 +24,7 @@
     "react-router-dom": "^7.18.5"
   },
   "devDependencies": {
+    "@google/genai": "^3.2.0",
     "@vitejs/plugin-react": "^6.3.0",
     "vite": "^8.3.8"
   }

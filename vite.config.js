@@ -1,27 +1,32 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// Serves /api/scan during `npm run dev` with the same handler Vercel deploys,
-// so local development doesn't need `vercel dev`.
+// Serves /api/scan during `npm run dev` using the same core as the Cloud Function,
+// so local development doesn't need the Firebase emulator.
 function localApi() {
   return {
     name: 'local-api',
     configureServer(server) {
       server.middlewares.use('/api/scan', async (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        if (req.method !== 'POST') {
+          res.statusCode = 405;
+          res.end(JSON.stringify({ error: 'Use POST.' }));
+          return;
+        }
         try {
           const chunks = [];
           for await (const chunk of req) chunks.push(chunk);
-          const { POST } = await server.ssrLoadModule('/api/scan.js');
-          const response = await POST(
-            new Request('http://localhost/api/scan', {
-              method: req.method,
-              headers: req.headers,
-              body: req.method === 'POST' ? Buffer.concat(chunks) : undefined,
-            }),
-          );
-          res.statusCode = response.status;
-          response.headers.forEach((value, key) => res.setHeader(key, value));
-          res.end(Buffer.from(await response.arrayBuffer()));
+          let payload = null;
+          try {
+            payload = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+          } catch {
+            /* scanResponse turns a missing body into a 400 */
+          }
+          const { scanResponse } = await server.ssrLoadModule('/functions/src/scanResponse.js');
+          const { status, body } = await scanResponse(payload);
+          res.statusCode = status;
+          res.end(JSON.stringify(body));
         } catch (err) {
           console.error(err);
           res.statusCode = 500;

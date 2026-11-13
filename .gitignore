@@ -1,8 +1,10 @@
 node_modules
 dist
-.vercel
+.firebase
 .env
 .env.*
 !.env.example
+functions/.secret.local
+functions/.runtimeconfig.json
 *.log
 .DS_Store
