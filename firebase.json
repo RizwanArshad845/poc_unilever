@@ -4,7 +4,6 @@
     "public": "dist",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "predeploy": ["npm run build"],
-    "redirects": [{ "source": "/unilever", "destination": "/unilever/", "type": 301 }],
     "rewrites": [
       { "source": "/unilever/api/scan", "function": { "functionId": "unileverScan", "region": "us-central1" } },
       { "source": "/unilever/**", "destination": "/unilever/index.html" }

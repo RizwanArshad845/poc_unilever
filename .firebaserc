@@ -1,11 +1,11 @@
 {
   "projects": {
-    "default": "jaltech-poc"
+    "default": "tech-poc-a5f7a"
   },
   "targets": {
-    "jaltech-poc": {
+    "tech-poc-a5f7a": {
       "hosting": {
-        "pocs": ["jaltech-poc"]
+        "pocs": ["jaltech-pocs"]
       }
     }
   }

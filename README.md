@@ -2,7 +2,7 @@
 
 A shopper photographs their Lux shower gel. Gemini verifies the pack, and if it is genuine Lux the shopper scratches a gold card to reveal a prize.
 
-Live: https://jaltech-poc.web.app/unilever/ (Firebase project `jaltech-poc`, Hosting site `jaltech-poc`, path `/unilever/`)
+Live: https://jaltech-pocs.web.app/unilever/ (Firebase project `tech-poc-a5f7a` "JALTech POC", Hosting site `jaltech-pocs`, path `/unilever/`)
 
 ## Stack
 
@@ -23,11 +23,11 @@ The camera needs HTTPS or `localhost`. To test on a phone, use the deployed site
 
 ## Deploy to Firebase
 
-One-time setup (needs access to project `jaltech-poc`, which must be on the Blaze plan for Cloud Functions):
+One-time setup (project `tech-poc-a5f7a` is on the Blaze plan, required for Cloud Functions):
 
 ```bash
 npx firebase-tools login
-npx firebase-tools functions:secrets:set GEMINI_API_KEY --project jaltech-poc
+npx firebase-tools functions:secrets:set GEMINI_API_KEY --project tech-poc-a5f7a
 ```
 
 Then deploy (builds the site first):
@@ -38,7 +38,7 @@ npm run deploy:web    # site only
 npm run deploy:api    # function only
 ```
 
-Hosting deploys replace the **whole** `jaltech-poc` site. This config publishes only `/unilever/`, so if other POCs are later served from the same site, their files must be included in the same deploy (or each POC should get its own Hosting site). Functions deploy only the `unilever` codebase, so other functions in the project are not touched.
+Hosting deploys replace the **whole** `jaltech-pocs` site. This config publishes only `/unilever/`, so if other POCs are later served from the same site, their files must be included in the same deploy (or each POC should get its own Hosting site). Functions deploy only the `unilever` codebase, so other functions in the project are not touched.
 
 ## Tuning the AI
 
