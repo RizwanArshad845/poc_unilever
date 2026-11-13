@@ -1,16 +1,17 @@
 {
   "hosting": {
-    "target": "unilever",
+    "target": "pocs",
     "public": "dist",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "predeploy": ["npm run build"],
+    "redirects": [{ "source": "/unilever", "destination": "/unilever/", "type": 301 }],
     "rewrites": [
-      { "source": "/api/scan", "function": { "functionId": "unileverScan", "region": "us-central1" } },
-      { "source": "**", "destination": "/index.html" }
+      { "source": "/unilever/api/scan", "function": { "functionId": "unileverScan", "region": "us-central1" } },
+      { "source": "/unilever/**", "destination": "/unilever/index.html" }
     ],
     "headers": [
       {
-        "source": "/assets/**",
+        "source": "/unilever/assets/**",
         "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
       }
     ]

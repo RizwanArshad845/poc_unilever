@@ -1,13 +1,16 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// Serves /api/scan during `npm run dev` using the same core as the Cloud Function,
+// Served at https://jaltech-poc.web.app/unilever/ (see firebase.json).
+const BASE = '/unilever/';
+
+// Serves <BASE>api/scan during `npm run dev` using the same core as the Cloud Function,
 // so local development doesn't need the Firebase emulator.
 function localApi() {
   return {
     name: 'local-api',
     configureServer(server) {
-      server.middlewares.use('/api/scan', async (req, res) => {
+      server.middlewares.use(`${BASE}api/scan`, async (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         if (req.method !== 'POST') {
           res.statusCode = 405;
@@ -40,5 +43,10 @@ function localApi() {
 export default defineConfig(({ mode }) => {
   // Expose server-only vars (no VITE_ prefix) to the local API handler only.
   Object.assign(process.env, loadEnv(mode, process.cwd(), ''));
-  return { plugins: [react(), localApi()] };
+  return {
+    base: BASE,
+    // dist/ is the Hosting root; the app lives in dist/unilever/ so it serves at /unilever/.
+    build: { outDir: 'dist/unilever', emptyOutDir: true },
+    plugins: [react(), localApi()],
+  };
 });

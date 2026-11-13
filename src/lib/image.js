@@ -40,7 +40,7 @@ export async function fileToPayload(file) {
 }
 
 export async function scanImage({ image, mimeType }) {
-  const res = await fetch('/api/scan', {
+  const res = await fetch(`${import.meta.env.BASE_URL}api/scan`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ image, mimeType }),

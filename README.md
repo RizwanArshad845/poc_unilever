@@ -2,12 +2,12 @@
 
 A shopper photographs their Lux shower gel. Gemini verifies the pack, and if it is genuine Lux the shopper scratches a gold card to reveal a prize.
 
-Live: https://jaltech-unilever.web.app (Firebase project `tech-poc-a5f7a` "JALTech POC", Hosting site `jaltech-unilever`)
+Live: https://jaltech-poc.web.app/unilever/ (Firebase project `jaltech-poc`, Hosting site `jaltech-poc`, path `/unilever/`)
 
 ## Stack
 
 - **Vite + React 19** single-page app (`/` landing, `/scan` camera flow)
-- **Cloud Function** `unileverScan` (`functions/`) calls Gemini via `@google/genai`. Firebase Hosting routes `POST /api/scan` to it. The API key lives in Secret Manager and never reaches the browser.
+- **Cloud Function** `unileverScan` (`functions/`) calls Gemini via `@google/genai`. Firebase Hosting routes `POST /unilever/api/scan` to it. The API key lives in Secret Manager and never reaches the browser.
 - `motion` for animation, `canvas-confetti` for the win moment, `lucide-react` icons
 
 ## Run locally
@@ -16,19 +16,18 @@ Live: https://jaltech-unilever.web.app (Firebase project `tech-poc-a5f7a` "JALTe
 npm install
 npm run install:functions
 cp .env.example .env.local   # then add your GEMINI_API_KEY
-npm run dev                  # http://localhost:5173 (the /api/scan route works locally too)
+npm run dev                  # http://localhost:5173/unilever/ (the API route works locally too)
 ```
 
 The camera needs HTTPS or `localhost`. To test on a phone, use the deployed site.
 
 ## Deploy to Firebase
 
-One-time setup (project `tech-poc-a5f7a` must be on the Blaze plan for Cloud Functions):
+One-time setup (needs access to project `jaltech-poc`, which must be on the Blaze plan for Cloud Functions):
 
 ```bash
 npx firebase-tools login
-npx firebase-tools hosting:sites:create jaltech-unilever --project tech-poc-a5f7a
-npx firebase-tools functions:secrets:set GEMINI_API_KEY --project tech-poc-a5f7a
+npx firebase-tools functions:secrets:set GEMINI_API_KEY --project jaltech-poc
 ```
 
 Then deploy (builds the site first):
@@ -39,7 +38,7 @@ npm run deploy:web    # site only
 npm run deploy:api    # function only
 ```
 
-Deploys target only the `jaltech-unilever` site and the `unilever` functions codebase, so the project's other site and existing functions are not touched.
+Hosting deploys replace the **whole** `jaltech-poc` site. This config publishes only `/unilever/`, so if other POCs are later served from the same site, their files must be included in the same deploy (or each POC should get its own Hosting site). Functions deploy only the `unilever` codebase, so other functions in the project are not touched.
 
 ## Tuning the AI
 

@@ -1,11 +1,11 @@
 {
   "projects": {
-    "default": "tech-poc-a5f7a"
+    "default": "jaltech-poc"
   },
   "targets": {
-    "tech-poc-a5f7a": {
+    "jaltech-poc": {
       "hosting": {
-        "unilever": ["jaltech-unilever"]
+        "pocs": ["jaltech-poc"]
       }
     }
   }

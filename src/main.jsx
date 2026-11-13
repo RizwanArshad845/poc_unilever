@@ -9,7 +9,8 @@ import './styles.css';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <MotionConfig reducedMotion="user">
-      <BrowserRouter>
+      {/* App is served under /unilever/ (vite.config.js `base`) */}
+      <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/scan" element={<Scan />} />

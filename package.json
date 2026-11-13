@@ -11,8 +11,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "install:functions": "cd functions && npm install",
-    "deploy": "npx firebase-tools deploy --only hosting:unilever,functions:unilever",
-    "deploy:web": "npx firebase-tools deploy --only hosting:unilever",
+    "deploy": "npx firebase-tools deploy --only hosting:pocs,functions:unilever",
+    "deploy:web": "npx firebase-tools deploy --only hosting:pocs",
     "deploy:api": "npx firebase-tools deploy --only functions:unilever"
   },
   "dependencies": {
