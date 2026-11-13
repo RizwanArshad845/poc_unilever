@@ -2,7 +2,7 @@
 
 A shopper photographs their Lux shower gel. Gemini verifies the pack, and if it is genuine Lux the shopper scratches a gold card to reveal a prize.
 
-Live: https://jaltech-unilever.web.app (Firebase project `jaltech-poc`, Hosting site `jaltech-unilever`)
+Live: https://jaltech-unilever.web.app (Firebase project `tech-poc-a5f7a` "JALTech POC", Hosting site `jaltech-unilever`)
 
 ## Stack
 
@@ -23,12 +23,12 @@ The camera needs HTTPS or `localhost`. To test on a phone, use the deployed site
 
 ## Deploy to Firebase
 
-One-time setup (project must be on the Blaze plan for Cloud Functions):
+One-time setup (project `tech-poc-a5f7a` must be on the Blaze plan for Cloud Functions):
 
 ```bash
 npx firebase-tools login
-npx firebase-tools hosting:sites:create jaltech-unilever --project jaltech-poc
-npx firebase-tools functions:secrets:set GEMINI_API_KEY --project jaltech-poc
+npx firebase-tools hosting:sites:create jaltech-unilever --project tech-poc-a5f7a
+npx firebase-tools functions:secrets:set GEMINI_API_KEY --project tech-poc-a5f7a
 ```
 
 Then deploy (builds the site first):
@@ -39,7 +39,7 @@ npm run deploy:web    # site only
 npm run deploy:api    # function only
 ```
 
-Deploys target only the `jaltech-unilever` site and the `unilever` functions codebase, so other sites in the `jaltech-poc` project (such as the game POCs at jaltech-poc.web.app) are not touched.
+Deploys target only the `jaltech-unilever` site and the `unilever` functions codebase, so the project's other site and existing functions are not touched.
 
 ## Tuning the AI
 
